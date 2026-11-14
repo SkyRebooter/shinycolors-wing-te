@@ -1,0 +1,14 @@
+{
+  "version": "0.6.8",
+  "publication_date": "2026-11-14",
+  "syntax": "passed",
+  "offline_tests": {
+    "passed": 112,
+    "failed": 0,
+    "node": "24.18.0",
+    "evidence": "verification/tests-v0.6.8.txt"
+  },
+  "current_version_live_verified": false,
+  "historical_live_scope": "v0.5.3 ordinary audition-result dialogue and season transition only; this does not validate v0.6.8 or a full TE run.",
+  "source_sha256": "ed8d97045d47b45525ee7cd2f3e6f68887248189c85b722c9d991b673fb68e0d"
+}

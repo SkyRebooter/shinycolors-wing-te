@@ -1,0 +1,14 @@
+{
+  "name": "shinycolors-wing-te",
+  "version": "0.6.8",
+  "private": true,
+  "description": "ShinyColors WING TE browser userscript",
+  "scripts": {
+    "check": "node --check ShinyColorsWing.user.js",
+    "test": "node --test wing.test.cjs",
+    "build": "python3 scripts/package.py"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
