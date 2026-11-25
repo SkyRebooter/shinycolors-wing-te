@@ -1,0 +1,29 @@
+name: Publish v0.7.0 prerelease
+on:
+  push:
+    branches: [main]
+    paths: [releases/v0.7.0.md]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run check
+      - run: npm run build
+      - name: Create prerelease and upload assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v0.7.0 \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --prerelease --title "v0.7.0 — ShinyColors 合并助手" \
+            --notes-file releases/v0.7.0.md \
+            ShinyColorsWing.user.js dist/ShinyColors_Tampermonkey_v0.7.0.zip \
+            dist/ShinyColors_full_v0.7.0.zip dist/SHA256SUMS

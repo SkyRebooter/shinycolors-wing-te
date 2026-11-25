@@ -18,20 +18,22 @@ def archive(path, members):
             z.writestr(item, data)
     with ZipFile(path) as z:
         assert z.testzip() is None
-installer = OUT / f'WING_TE_Tampermonkey_v{VERSION}.zip'
+installer = OUT / f'ShinyColors_Tampermonkey_v{VERSION}.zip'
 archive(installer, [('ShinyColorsWing.user.js', SCRIPT.read_bytes())])
-files = ['ShinyColorsWing.user.js', 'wing.test.cjs', 'README.md', 'package.json',
+files = ['ShinyColorsWing.user.js', 'README.md', 'package.json', 'wing.test.cjs',
+         'src/bootstrap.js', 'src/daily.cjs', 'src/wing.cjs',
          'validation.json', 'docs/HANDOFF.md', 'docs/SOURCE_ADAPTERS.md',
-         'scripts/package.py', f'verification/tests-v{VERSION}.txt',
-         '.github/workflows/tests.yml', '.gitignore']
-full = OUT / f'WING_TE_full_v{VERSION}.zip'
-archive(full, [(f'WING_TE_browser/{f}', (ROOT / f).read_bytes()) for f in files] +
-        [(f'WING_TE_browser/{installer.name}', installer.read_bytes())])
+         'scripts/build.py', 'scripts/package.py', 'verification/tests-v0.6.8.txt',
+         f'releases/v{VERSION}.md', '.github/workflows/tests.yml',
+         '.github/workflows/release.yml', '.gitignore']
+full = OUT / f'ShinyColors_full_v{VERSION}.zip'
+archive(full, [(f'ShinyColors/{f}', (ROOT / f).read_bytes()) for f in files] +
+        [(f'ShinyColors/{installer.name}', installer.read_bytes())])
 with ZipFile(installer) as z:
     assert z.read('ShinyColorsWing.user.js') == SCRIPT.read_bytes()
 with ZipFile(full) as z:
-    assert z.read('WING_TE_browser/ShinyColorsWing.user.js') == SCRIPT.read_bytes()
-    assert z.read(f'WING_TE_browser/{installer.name}') == installer.read_bytes()
-manifest = ''.join(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}\n' for p in [installer, full])
+    assert z.read('ShinyColors/ShinyColorsWing.user.js') == SCRIPT.read_bytes()
+    assert z.read(f'ShinyColors/{installer.name}') == installer.read_bytes()
+manifest = ''.join(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}\n' for p in [SCRIPT, installer, full])
 (OUT / 'SHA256SUMS').write_text(manifest)
 print(manifest, end='')

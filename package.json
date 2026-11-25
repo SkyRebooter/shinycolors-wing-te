@@ -1,12 +1,12 @@
 {
   "name": "shinycolors-wing-te",
-  "version": "0.6.8",
+  "version": "0.7.0",
   "private": true,
-  "description": "ShinyColors WING TE browser userscript",
+  "description": "ShinyColors daily missions, event Auto Produce scheduling and WING TE userscript",
   "scripts": {
-    "check": "node --check ShinyColorsWing.user.js",
+    "check": "python3 scripts/build.py --check && node --check ShinyColorsWing.user.js",
     "test": "node --test wing.test.cjs",
-    "build": "python3 scripts/package.py"
+    "build": "python3 scripts/build.py && python3 scripts/package.py"
   },
   "engines": {
     "node": ">=22"
